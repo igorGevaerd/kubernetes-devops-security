@@ -20,6 +20,13 @@ pipeline {
               }
             }
         }
+      # add mutation tests in the future - PIT
+    
+        stage('SonarQube - SAST') {
+            steps {
+              sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://my-devsecops-demo.eastus.cloudapp.azure.com:9000 -Dsonar.login=sqp_fdc78676f7ab79bc49deffa285e5c1a1b43eff47"
+            }
+        }
     
         stage('Docker Build and Push') {
             steps {
