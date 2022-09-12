@@ -71,9 +71,7 @@ pipeline {
 
         stage('Vulnerability Scan - Kubernetes') {
           steps {
-            "Kubesec Scan": {
-              sh "bash kubesec-scan.sh"
-            }
+            sh "bash kubesec-scan.sh"ß
           }
         }
     
