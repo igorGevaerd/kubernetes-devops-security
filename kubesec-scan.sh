@@ -2,7 +2,7 @@
 
 scan_result=$(curl -sSX POST --data-binary @"k8s_deployment_service.yaml" https://v2.kubesec.io/scan)
 
-echo $(echo ${scan_result} | jq)
+echo $(echo ${scan_result} | jq '.')
 
 scan_message=$(echo ${scan_result} | jq '.[0].message' -r)
 scan_score=$(echo ${scan_result} | jq '.[0].score')
