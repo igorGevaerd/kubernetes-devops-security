@@ -48,7 +48,14 @@ pipeline {
         
         stage('Vulnerability Scan - Docker') {
           steps {
-            sh 'mvn dependency-check:check'
+            parallel(
+              "Dependency Scan": {
+                sh 'mvn dependency-check:check'
+              },
+              "Trivy Scan": {
+                sh "bash trivy-docker-image-scan.sh"
+              }
+            )
           }
         }
     
@@ -56,7 +63,7 @@ pipeline {
             steps {
               withDockerRegistry (credentialsId: "docker", url: "") {
                 sh "printenv"
-                sh "docker build -t igev/numeric-app:${GIT_COMMIT} ."
+                sh "sudo docker build -t igev/numeric-app:${GIT_COMMIT} ."
                 sh "docker push igev/numeric-app:${GIT_COMMIT}"
               }
             }
