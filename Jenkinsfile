@@ -71,7 +71,14 @@ pipeline {
 
         stage('Vulnerability Scan - Kubernetes') {
           steps {
-            sh "bash kubesec-scan.sh"
+            parallel(
+              "Kubesec scan": {
+                sh "bash kubesec-scan.sh"
+              },
+              "Trivy scan": {
+                sh "bash trivy-k8s-scan.sh"
+              }
+            )            
           }
         }
     
