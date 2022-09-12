@@ -73,22 +73,16 @@ pipeline {
             steps {
               parallel(
                 "Deployment": {
-                  withKubeConfig ([credentialsId: "kubeconfig"]) {
+                  withKubeConfig (credentialsId: "kubeconfig") {
                     sh "bash k8s-deployment.sh"
                   }
                 },
                 "Rollout Status": {
-                  withKubeConfig ([credentialsId: "kubeconfig"]) {
+                  withKubeConfig (credentialsId: "kubeconfig") {
                     sh "bash k8s-deployment-rollout-status.sh"
                   }
                 }
               )
-            }
-            steps {
-              withKubeConfig (credentialsId: "kubeconfig") {
-                sh "sed -i 's#replace#igev/numeric-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
-                sh "kubectl apply -f k8s_deployment_service.yaml"
-              }
             }
         }
     }
