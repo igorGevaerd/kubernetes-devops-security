@@ -19,8 +19,8 @@ spec:
       containers:
       - image: replace
         name: devsecops-container
-        securtiyContext:
-          readOnlyRootFileSystem: true
+        securityContext:
+          readOnlyRootFilesystem: true
           runAsNonRoot: true
           runAsUser: 999
 ---
