@@ -68,6 +68,14 @@ pipeline {
               }
             }
         }
+
+        stage('Vulnerability Scan - Kubernetes') {
+          steps {
+            "Kubesec Scan": {
+              sh "bash kubesec-scan.sh"
+            }
+          }
+        }
     
         stage('Kubernetes Deployment - DEV') {
             steps {
