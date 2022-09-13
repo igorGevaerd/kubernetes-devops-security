@@ -6,7 +6,7 @@ PORT=$(kubectl -n default get svc ${serviceName} -o json | jq '.spec.ports[].nod
 
 echo $PORT
 # echo $applicationURL:$PORT/$applicationURI
-appAddrs=$(echo $applicationURL:$PORT/$applicationURI)
+appAddrs=$(echo $applicationURL:$PORT$applicationURI)
 echo $appAddrs
 
 if [[ ! -z "$PORT" ]]; then
