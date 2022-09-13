@@ -130,6 +130,7 @@ pipeline {
       junit 'target/surefire-reports/*.xml'
       jacoco execPattern: 'target/jacoco.exec'
       dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+      publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'owasp-zap-report', reportFiles: 'zap_report.html', reportName: 'my-devsecops-demo.eastus.cloudapp.azure.com', reportTitles: 'OWASP ZAP HTML Report'])
     }
     
 //     success {
