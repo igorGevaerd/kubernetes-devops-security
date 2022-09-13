@@ -4,7 +4,8 @@ PORT=$(kubectl -n default get svc ${serviceName} -o json | jq '.spec.ports[].nod
 
 chmod 777 $(pwd)
 echo $(id -u):$(id -g)
-docker run -v $(pwd):zap/wrk/:rw -t owasp/zap2docker-weekly zap-api-scan.py -t $applicationURL:$PORT/v3/api-docs -f openapi -r zap_report.html
+docker container run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap.sh -cmd -autorun /zap/wrk/zap.yaml
+docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-api-scan.py -t $applicationURL:$PORT/v3/api-docs -f openapi -r zap_report.html
 
 exit_code=$?
 echo "Exit Code: $exit_code"
